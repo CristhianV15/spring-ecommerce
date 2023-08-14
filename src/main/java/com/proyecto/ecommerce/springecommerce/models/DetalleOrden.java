@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 @Data
 @Entity
 @Table(name= "detalles") //Anotacion para no usar el nombre de la clase "DetalleOrden"
-//Comentario
+
 public class DetalleOrden {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
