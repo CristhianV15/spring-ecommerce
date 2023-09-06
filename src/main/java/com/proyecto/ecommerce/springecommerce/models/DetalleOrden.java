@@ -3,7 +3,7 @@ import lombok.Data;
 import jakarta.persistence.*;
 @Data
 @Entity
-@Table(name= "detalles") //Anotacion para no usar el nombre de la clase "DetalleOrden"
+@Table(name= "detallesOrden") //Anotacion para no usar el nombre de la clase "DetalleOrden"
 
 public class DetalleOrden {
     @Id

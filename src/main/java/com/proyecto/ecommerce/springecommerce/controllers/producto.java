@@ -35,7 +35,7 @@ public class producto {
     public String save(Producto producto){
         logger.info("Objeto producto: {}", producto);
         Usuario u = new Usuario(1, "", "", "", "", "", "", "", "", "");
-        
+        Usuario u2 = new Usuario(1, "", "", "", "", "", "", "", "", "");
         productoService.save(producto);
         return "redirect:/productos";
     }

@@ -4,14 +4,13 @@ import jakarta.persistence.*;
 
 @Data
 @Entity
-@Table(name= "categoriasProductos") //Anotacion para no usar el nombre de la clase "Categoria"
+@Table(name= "tiposUsuarios") //Anotacion para no usar el nombre de la clase "Categoria"
 
-public class Categoria {
-    //Atributos
+public class TipoUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private Integer idCategoria;
+    private Integer idTipoUsuario;
     private String nombre;
     private String estado;
 }
