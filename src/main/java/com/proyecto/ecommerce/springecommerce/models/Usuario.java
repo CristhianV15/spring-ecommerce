@@ -5,17 +5,12 @@ import lombok.*;
 import java.util.List; 
 
 
-@Getter
-@Setter
-@ToString
-@AllArgsConstructor // Genera un constructor con todos los campos
+@Data // Genera un constructor con todos los campos
 @Entity
 @Table(name= "usuarios") //Anotacion para no usar el nombre de la clase "Usuario"
 
 public class Usuario {
-    public Usuario(int idUsuario, String nombre, String username, String email, String direccion, String telefono,
-            String tipo, String password, String string, String string2) {
-    }
+ 
 
     //Atributos
     @Id

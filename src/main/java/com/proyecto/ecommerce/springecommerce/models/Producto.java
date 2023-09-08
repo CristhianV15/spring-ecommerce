@@ -25,4 +25,10 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
+
+    @Override
+	public String toString() {
+		return "Producto [id=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion + ", imagen=" + imagen
+				+ ", precio=" + precio + ", cantidad=" + cantidad + "]";
+	}
 }
