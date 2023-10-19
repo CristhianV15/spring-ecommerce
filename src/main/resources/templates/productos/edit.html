@@ -40,7 +40,8 @@
 
       <h2>Actualizar Producto</h2>
       <form class="form-horizontal" th:action="@{/productos/update}" method="post"  enctype="multipart/form-data">
-        <input type="hidden" name="id" th:value="${producto.id}">    
+        <!--Id oculto del producto para actualizar-->
+        <input type="hidden" name="idProducto" th:value="${producto.idProducto}">  
         
         <div class="form-group">
           <label class="control-label col-sm-2" for="nombre">Nombre:</label>
@@ -59,14 +60,14 @@
         <div class="form-group">
           <label class="control-label col-sm-2" for="cantidad">Cantidad:</label>
           <div class="col-sm-10">          
-            <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="Ingrese la cantidad del producto" th:value="${producto.cantidad}" required autocomplete="off">
+            <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="Ingrese la cantidad del producto"  required autocomplete="off" th:value="${producto.cantidad}">
           </div>
         </div>
 
         <div class="form-group">
           <label class="control-label col-sm-2" for="precio">Precio:</label>
           <div class="col-sm-10">          
-            <input type="number" class="form-control" step="any"  id="precio" name="precio" placeholder="Ingrese el precio del producto" th:value="${producto.precio}" required autocomplete="off">
+            <input type="number" class="form-control" step="any"  id="precio" name="precio" placeholder="Ingrese el precio del producto"  required autocomplete="off" th:value="${producto.precio}">
           </div>
         </div>
 
