@@ -87,6 +87,7 @@ public class producto {
 
     @PostMapping("/update")
     public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
+
         Producto p = new Producto();
         p = productoService.get(producto.getIdProducto()).get(); // obtener la imagen ya registrada
         if (file.isEmpty()) { // Cuando editamos producto pero no se cambia la imagen
@@ -99,7 +100,9 @@ public class producto {
             String nombreImagen = upload.saveImage(file);
             producto.setImagen(nombreImagen);
         }
+        producto.setUsuario(p.getUsuario());
         productoService.update(producto);
+        
         return "redirect:/productos";
     }
 
