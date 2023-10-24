@@ -21,10 +21,10 @@
 
 <body>
 
-    <!--Incluir template de header en pagina principal de administrador-->
-    <div th:include="administrador/template_admin.html::header"></div>
-    <!-- Page Content -->
-    <div class="container">
+  <!--Incluir template de header en pagina principal de administrador-->
+  <div th:include="administrador/template_admin.html::header"></div>
+  <!-- Page Content -->
+  <div class="container">
 
       <!-- Jumbotron Header -->
       <header class="jumbotron my-4">
@@ -34,8 +34,7 @@
 
       <!-- Page Features -->
       <div class="row text-center">
-
-        <div class="col-lg-3 col-md-6 mb-4" th:each="producto: ${productos}"> <!-- //traer la variable produco desde el control administradorController-->
+        <div class="col-lg-3 col-md-6 mb-4" th:each="producto: ${productos}"> <!-- //traer la variable produco desde el control homeController-->
           <div class="card h-100">
             <img class="card-img-top" th:src="@{/images/{img} (img=${producto.imagen})}" alt=""> <!--@{la ruta del recurso/nombrevar} {nombrevar=$valordeimagen del producto}    -->
             <div class="card-body">
@@ -46,12 +45,6 @@
             </div>
           </div>
         </div>
-
-      
-
-      </div>
-      <!-- /.row -->
-
     </div>
     <!-- /.container -->
 
