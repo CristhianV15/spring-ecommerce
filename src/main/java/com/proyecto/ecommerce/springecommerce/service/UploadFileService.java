@@ -13,7 +13,7 @@ public class UploadFileService {
     private String folder="images//"; //ubicacion- ruta de la imagen
 
     public String saveImage(MultipartFile file) throws IOException{
-        if(file.isEmpty()){
+        if(!file.isEmpty()){ //si no esta vacio, entonces realiza el guardado 
             byte [] bytes=file.getBytes();
             Path path= Paths.get(folder + file.getOriginalFilename());
             Files.write(path,bytes); //envio de ruta y bytes
