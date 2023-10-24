@@ -21,8 +21,8 @@
 
 <body>
 
-  <!--Incluir template de header en pagina principal de administrador-->
-  <div th:include="administrador/template_admin.html::header"></div>
+  <!--Incluir template de header en pagina principal del usuario-->
+  <div th:include="usuario/template_usuario.html::header"></div>
   <!-- Page Content -->
   <div class="container">
 
@@ -48,8 +48,8 @@
     </div>
     <!-- /.container -->
 
-    <!--Incluyendo template de footer-->
-    <div th:include="administrador/template_admin.html::footer"></div>
+    <!--Incluyendo template de footer del usuario-->
+    <div th:include="usuario/template_usuario.html::footer"></div>
 
     <!-- Bootstrap core JavaScript -->
     <script th:src="@{vendor/jquery/jquery.min.js}"></script>
