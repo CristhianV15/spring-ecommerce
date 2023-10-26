@@ -4,6 +4,7 @@ package com.proyecto.ecommerce.springecommerce.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.swing.text.html.Option;
 
@@ -53,7 +54,7 @@ public class homeController {
     }
 
     @GetMapping("/cart")
-    public String addcart(@RequestParam Integer id, @RequestParam Integer cantidad){
+    public String addcart(@RequestParam Integer id, @RequestParam Integer cantidad, Model model){
         DetalleOrden detalleOrden = new DetalleOrden();
         Producto producto = new Producto();
         double sumaTotal= 0;
@@ -61,6 +62,24 @@ public class homeController {
         Optional<Producto> optionalProducto= productoService.get(id);
         log.info("Producto añadido {}" + optionalProducto.get());
         log.info("Cantidad de producto {}" + cantidad);
+        producto=  optionalProducto.get(); //del producto seleccionado asignarlo a la variable del producto
+
+        detalleOrden.setCantidad(cantidad);
+        detalleOrden.setPrecio(producto.getPrecio());
+        detalleOrden.setNombre(producto.getNombre());
+        detalleOrden.setTotal(producto.getPrecio()*cantidad);
+        detalleOrden.setProducto(producto);        
+
+        detalles.add(detalleOrden); //añadir cada detalle del orden a la lista 
+        
+        sumaTotal = detalles.stream()
+    .mapToDouble(dt -> dt.getTotal()) // Mapea los valores de "total" a un stream de valores dobles
+    .sum(); // Calcula la suma de los valores dobles
+        
+        orden.setTotal(sumaTotal);
+
+        model.addAttribute("cart", detalles);
+        model.addAttribute("orden", orden);
         return "usuario/carrito";
     }
 }
