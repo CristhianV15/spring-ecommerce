@@ -41,4 +41,9 @@ public class homeController {
         model.addAttribute("producto", producto); //"variable en vista", variable del metodo 
         return "usuario/productohome";
     }
+
+    @GetMapping("/cart")
+    public String addcart(){
+        return "usuario/carrito";
+    }
 }
