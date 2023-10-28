@@ -3,6 +3,7 @@ package com.proyecto.ecommerce.springecommerce.service;
 import java.util.*;
 
 import com.proyecto.ecommerce.springecommerce.models.Producto;
+import com.proyecto.ecommerce.springecommerce.models.Usuario;
 
 public interface ProductoService {
     //Metodos CRUD
