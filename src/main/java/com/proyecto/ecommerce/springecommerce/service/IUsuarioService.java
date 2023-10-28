@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.proyecto.ecommerce.springecommerce.models.Producto;
 import com.proyecto.ecommerce.springecommerce.models.Usuario;
 
-public interface UsuarioService {
+public interface IUsuarioService {
     Optional <Usuario> findById(Integer id);
 
     // Metodos CRUD (cambiar a usuario lo que diga producto)

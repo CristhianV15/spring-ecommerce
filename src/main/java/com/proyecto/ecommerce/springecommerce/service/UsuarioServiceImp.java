@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.ecommerce.springecommerce.models.Producto;
 import com.proyecto.ecommerce.springecommerce.models.Usuario;
-import com.proyecto.ecommerce.springecommerce.repository.UsuarioRepository;
+import com.proyecto.ecommerce.springecommerce.repository.IUsuarioRepository;
 
 @Service
-public class UsuarioServiceImp implements UsuarioService{
+public class UsuarioServiceImp implements IUsuarioService{
 
     @Autowired
-    private UsuarioRepository  usuarioRepository;
+    private IUsuarioRepository  usuarioRepository;
 
     @Override
     public Optional<Usuario> findById(Integer id) {

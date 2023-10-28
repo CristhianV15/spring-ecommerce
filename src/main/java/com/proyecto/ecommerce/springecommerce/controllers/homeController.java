@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.proyecto.ecommerce.springecommerce.models.*;
 import com.proyecto.ecommerce.springecommerce.service.ProductoService;
-import com.proyecto.ecommerce.springecommerce.service.UsuarioService;
+import com.proyecto.ecommerce.springecommerce.service.IUsuarioService;
 
 @Controller
 @RequestMapping("/")
@@ -32,7 +32,7 @@ public class homeController {
     private ProductoService productoService;
 
     @Autowired
-    private UsuarioService usuarioService;
+    private IUsuarioService usuarioService;
 
     //Para almacenar los detalles de la orden 
     List<DetalleOrden> detalles = new ArrayList<DetalleOrden>();

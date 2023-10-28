@@ -4,6 +4,6 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.ecommerce.springecommerce.models.Usuario;
 
 @Repository
-public interface UsuarioRepository  extends JpaRepository<Usuario, Integer>{
+public interface IUsuarioRepository  extends JpaRepository<Usuario, Integer>{
     
 }
