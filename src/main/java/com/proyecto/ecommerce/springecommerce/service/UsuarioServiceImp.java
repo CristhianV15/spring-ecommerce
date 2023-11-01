@@ -21,19 +21,18 @@ public class UsuarioServiceImp implements IUsuarioService{
         }
 
     @Override
-    public Producto save(Producto producto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public Usuario save(Usuario usuario) {
+       return usuarioRepository.save(usuario);
     }
 
     @Override
-    public Optional<Producto> get(Integer id) {
+    public Optional<Usuario> get(Integer id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
 
     @Override
-    public void update(Producto producto) {
+    public void update(Usuario usuario) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
     }

@@ -8,12 +8,12 @@ import com.proyecto.ecommerce.springecommerce.models.Usuario;
 public interface IUsuarioService {
     Optional <Usuario> findById(Integer id);
 
-    // Metodos CRUD (cambiar a usuario lo que diga producto)
-    public Producto save(Producto producto);
+    //Metodos CRUD de la tabla de usuarios 
+    public Usuario save(Usuario usuario);
 
-    public Optional<Producto> get(Integer id);
+    public Optional<Usuario> get(Integer id);
 
-    public void update(Producto producto);
+    public void update(Usuario usuario);
 
     public void delete(Integer id);
 }
