@@ -7,4 +7,5 @@ import com.proyecto.ecommerce.springecommerce.models.Orden;
 public interface IOrdenService {
     List<Orden> findAll();
     Orden save(Orden orden);
+    String generarNumeroOrden();
 }
