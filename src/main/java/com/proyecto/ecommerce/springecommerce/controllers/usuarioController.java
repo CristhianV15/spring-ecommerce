@@ -28,17 +28,32 @@ public class usuarioController {
         return "usuario/registro";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "usuario/login";
+    }
+
     //Guardar usuario
     @PostMapping("/save")
     public String save (Usuario usuario)
     {
+        //Por defecto los usuarios que se creen son de tipo cliente es decir tipo "user", el tipo de usuario es 2
+        //Se crea una instancia del tipo usuario
         TipoUsuario tipoUsuario  = new TipoUsuario();
+        //Se asigna por defecto el tipo de usuario del cliente : 2
         tipoUsuario.setIdTipoUsuario(2);
 
-        logger.info("Nombre del cliente : {} ,  contraseña : {}" , usuario.getNombre(), usuario.getPassword());
+        //Probando el envio en consola
+        logger.info("Nombre del cliente : {} , username : {} , contrasenia : {}" , usuario.getNombre(), usuario.getUsername(), usuario.getPassword());
+      
+        //Añadiendo el telefono (por mientras)
         usuario.setTelefono("999777111");
+
+        //Añadiendo el tipo de usuario que se creo arriba
         usuario.setTipoUsuario(tipoUsuario);
-        usuarioService.save(usuario);
+
+        //se guardan todos los datos del usuario 
+        usuarioService.save(usuario); 
         return "redirect:/";
     }
 } 
