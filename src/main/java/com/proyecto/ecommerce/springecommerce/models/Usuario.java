@@ -35,5 +35,9 @@ public class Usuario {
     private String telefono;
     private String password;
 
-   
+    @Override
+	public String toString() {
+		return "Producto [nombre=" + nombre + ", username=" + username + ", email=" + email + ", direccion=" + direccion + ", telefono=" + telefono +
+        ", password: " + password+ "]";
+	}
 }

@@ -1,5 +1,7 @@
 package com.proyecto.ecommerce.springecommerce.controllers;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.proyecto.ecommerce.springecommerce.models.TipoUsuario;
 import com.proyecto.ecommerce.springecommerce.models.Usuario;
 import com.proyecto.ecommerce.springecommerce.service.IUsuarioService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping ("/usuario")
@@ -54,6 +58,26 @@ public class usuarioController {
 
         //se guardan todos los datos del usuario 
         usuarioService.save(usuario); 
-        return "redirect:/";
+        return "redirect:/"; //regresa a la home
+    }
+
+    //Post mapping previo a usar spring security 
+    @PostMapping("/acceder")
+    public String acceder(Usuario usuario, HttpSession session){
+        logger.info("Datos de acceso : {}", usuario);
+
+        Optional<Usuario> user = usuarioService.findByEmail(usuario.getEmail());
+        //logger.info("Usuario obtenido por la bd {}", user.get()); //Verificar los datos obtenidos del usuario obtenido por email
+        
+        if(user.isPresent()){ //si hay registros con este email
+            session.setAttribute("idusuario", user.get().getIdUsuario()); //primer parametro para vista y el segundo lo que obtiene del back
+            if(user.get().getTipoUsuario().getIdTipoUsuario().equals(1)){
+                return "redirect:/administrador";}
+            else{
+            return "redirect:/";}
+        } else{
+            logger.info("Usuario no existe");
+        }
+        return "redirect:/"; //regresa a la home
     }
 } 
