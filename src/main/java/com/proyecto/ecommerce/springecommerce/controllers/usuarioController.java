@@ -71,12 +71,16 @@ public class usuarioController {
         
         if(user.isPresent()){ //si hay registros con este email
             session.setAttribute("idusuario", user.get().getIdUsuario()); //primer parametro para vista y el segundo lo que obtiene del back
-            if(user.get().getTipoUsuario().getIdTipoUsuario().equals(1)){
+            if(user.get().getTipoUsuario().getIdTipoUsuario().equals(1) && usuario.getPassword().equals(user.get().getPassword())){
                 return "redirect:/administrador";}
-            else{
+            else if(user.get().getTipoUsuario().getIdTipoUsuario().equals(2) && usuario.getPassword().equals(user.get().getPassword())) {
             return "redirect:/";}
+            else{
+                return "redirect:/usuario/login";
+            }
         } else{
             logger.info("Usuario no existe");
+            //logger.info("Usuario no existe, el correo usado fue : {} " , user.get().getEmail());
         }
         return "redirect:/"; //regresa a la home
     }
