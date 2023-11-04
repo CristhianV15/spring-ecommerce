@@ -5,10 +5,13 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.ecommerce.springecommerce.models.TipoUsuario;
 import com.proyecto.ecommerce.springecommerce.models.Usuario;
@@ -63,7 +66,7 @@ public class usuarioController {
 
     //Post mapping previo a usar spring security 
     @PostMapping("/acceder")
-    public String acceder(Usuario usuario, HttpSession session){
+    public String acceder(Usuario usuario, HttpSession session, RedirectAttributes redirectAttributes){
         logger.info("Datos de acceso : {}", usuario);
 
         Optional<Usuario> user = usuarioService.findByEmail(usuario.getEmail());
@@ -76,12 +79,15 @@ public class usuarioController {
             else if(user.get().getTipoUsuario().getIdTipoUsuario().equals(2) && usuario.getPassword().equals(user.get().getPassword())) {
             return "redirect:/";}
             else{
+                //Para enviar mensaje de error a la vista 
+                redirectAttributes.addFlashAttribute("errorLogeo", "El correo o contraseña son incorrectos ");
                 return "redirect:/usuario/login";
             }
         } else{
             logger.info("Usuario no existe");
             //logger.info("Usuario no existe, el correo usado fue : {} " , user.get().getEmail());
         }
-        return "redirect:/"; //regresa a la home
+        redirectAttributes.addFlashAttribute("errorLogeo2", "El correo ingresado no existe");
+        return "redirect:/usuario/login"; //regresa a la home
     }
 } 

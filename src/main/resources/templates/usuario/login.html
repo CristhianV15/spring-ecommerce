@@ -12,11 +12,11 @@
 
 
 
- <!--Para que reconozca el css-->
- <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <!--Para que reconozca el css-->
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
- <!-- Custom styles for this template -->
- <link th:href="@{/css/heroic-features.css}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/heroic-features.css}" rel="stylesheet">
 
 </head>
 
@@ -79,17 +79,23 @@
           <button type="submit" class="btn btn-dark"> <span class="glyphicon glyphicon-ok"></span> Ingresar</button>
         </div>
       </div>
+      <div th:if="${errorLogeo}" class="error-message">
+        <p th:text="${errorLogeo}"></p>
+      </div>
+      <div th:if="${errorLogeo2}" class="error-message">
+        <p th:text="${errorLogeo2}"></p>
+      </div>
     </form>
     <a th:href="@{/usuario/registro}" class="card-link">Si aún no tiene cuenta aqui puede registrarse</a>
   </div>
   <!-- /.container -->
 
- <!--Incluyendo template de footer del usuario-->
- <div th:include="usuario/template_usuario.html::footer"></div>
+  <!--Incluyendo template de footer del usuario-->
+  <div th:include="usuario/template_usuario.html::footer"></div>
 
- <!-- Bootstrap core JavaScript -->
- <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
- <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 
