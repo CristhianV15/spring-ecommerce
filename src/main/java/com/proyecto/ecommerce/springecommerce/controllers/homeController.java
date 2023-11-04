@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.proyecto.ecommerce.springecommerce.models.*;
 import com.proyecto.ecommerce.springecommerce.service.ProductoService;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.proyecto.ecommerce.springecommerce.service.IDetalleOrdenService;
 import com.proyecto.ecommerce.springecommerce.service.IOrdenService;
 import com.proyecto.ecommerce.springecommerce.service.IUsuarioService;
@@ -47,10 +51,17 @@ public class homeController {
     //Para almacenar los detalles de la orden 
     List<DetalleOrden> detalles = new ArrayList<DetalleOrden>();
 
+    //Metodo para obtener el idUsuario por la variable usuario
+    @ModelAttribute("idUsuarioOrden")
+    public Integer getIdUsuarioOrden(HttpSession session){
+        return Integer.parseInt(session.getAttribute("idusuario").toString());
+    } //para usarlo se usa como parametro : @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden
+    
     //Datos de la orden
     Orden orden =new Orden();
     @GetMapping("") //apunta a la raiz
-    public String home(Model model ){
+    public String home(Model model, HttpSession session ){
+        log.info("Sesion del usuario (id) {}" , session.getAttribute("idusuario"));
         model.addAttribute("productos", productoService.findAll()); //guardar todos los datos de productos en variable productos
         return "usuario/home";
     }
@@ -137,8 +148,9 @@ public class homeController {
     }
 
     @GetMapping("/order")
-    public String order (Model model){
-        Usuario usuario= usuarioService.findById(1).get();
+    public String order (Model model , @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden){
+        
+        Usuario usuario= usuarioService.findById(idUsuarioOrden).get();
 
 
         model.addAttribute("cart", detalles);
@@ -148,13 +160,13 @@ public class homeController {
     }
 
     @GetMapping("/saveOrder")
-    public String saveOrder(){
+    public String saveOrder(@ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden){
         Date fechaCreacion = new Date();
         orden.setFechaCreacion(fechaCreacion);
         orden.setNumero(ordenService.generarNumeroOrden());
 
         //usuario
-        Usuario usuario= usuarioService.findById(1).get();
+        Usuario usuario= usuarioService.findById(idUsuarioOrden).get();
         
         orden.setUsuario(usuario);
         ordenService.save(orden);

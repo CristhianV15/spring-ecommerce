@@ -3,11 +3,14 @@ package com.proyecto.ecommerce.springecommerce.controllers;
 import java.io.IOException;
 import java.util.Optional;
 
+import javax.swing.text.html.Option;
+
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +19,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.proyecto.ecommerce.springecommerce.models.Producto;
 import com.proyecto.ecommerce.springecommerce.models.Usuario;
-
+import com.proyecto.ecommerce.springecommerce.service.IUsuarioService;
 import com.proyecto.ecommerce.springecommerce.service.ProductoService;
 import com.proyecto.ecommerce.springecommerce.service.UploadFileService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/productos")
 public class producto {
 
     private final Logger logger = LoggerFactory.getLogger(producto.class);
+
+    //Método para guardar el idUsuario mediante la sesion del usuario
+    @ModelAttribute ("idUsuarioOrden")
+    public Integer getIdUsuarioOrden (HttpSession session){
+        return Integer.parseInt(session.getAttribute("idusuario").toString()); //Se obtiene desde usuarioController
+    }
+
+    @Autowired
+    private IUsuarioService usuarioService;
 
     @Autowired
     private ProductoService productoService;
@@ -44,16 +58,18 @@ public class producto {
     }
 
     @PostMapping("/save")
-    public String save(Producto producto, @RequestParam("img") MultipartFile file) throws IOException { // busca el
+    public String save(Producto producto, @RequestParam("img") MultipartFile file, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden) throws IOException { // busca el
                                                                                                         // atributo img
                                                                                                         // en la vista
                                                                                                         // de
                                                                                                         // create.html
                                                                                                         // -->"name"
         logger.info("Objeto producto: {}", producto);
-        // Aquí puedes realizar alguna validación o procesamiento adicional si es
-        // necesario
-        Usuario usuario = new Usuario();
+        Usuario u = usuarioService.findById(idUsuarioOrden).orElse(new Usuario());
+        logger.info( "Id del usuaroi loegaod para guardar el producto {}", idUsuarioOrden);
+        producto.setUsuario(u);
+        
+
 
         // Imagen
         if (producto.getIdProducto() == null) { // cuando se crea un producto
@@ -65,9 +81,10 @@ public class producto {
         } else {
 
         }
-
-        usuario.setIdUsuario(1); // Id Usuario existente
-        producto.setUsuario(usuario);
+        /*Para probar en la inserccion con un usuario no dinamico 
+        Usuario usuario = new Usuario();
+        usuario.setIdUsuario(1); 
+        producto.setUsuario(usuario); */
         productoService.save(producto);
         return "redirect:/productos";
     }
