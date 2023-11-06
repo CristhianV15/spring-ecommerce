@@ -22,7 +22,8 @@
 <body>
 
   <!--Incluir template de header en pagina principal del usuario-->
-  <div th:include="usuario/template_usuario.html::header"></div>
+  <div th:include="usuario/template_usuario.html::header" th:if="${sesionUser==null}"></div>
+  <div th:include="usuario/template_usuario.html::header-user" th:unless="${sesionUser==null}"></div>
   <!-- Page Content -->
   <div class="container">
 

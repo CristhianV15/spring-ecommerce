@@ -21,8 +21,10 @@
 <body>
 
   <!--Incluir template de header en pagina principal del usuario-->
-  <div th:include="usuario/template_usuario.html::header"></div>
+  <div th:include="usuario/template_usuario.html::header" th:if="${sesionUser==null}"></div>
 
+  <!--Templade de usuario -->
+  <div th:include="usuario/template_usuario.html::header-user" th:unless="${sesionUser==null}"></div>
   <!-- Page Content -->
   <div class="container">
 
@@ -53,12 +55,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr th:each="dorden: ${cart}">  <!--Se agrega lo recibido de la variable cart a la nueva variable creada "dorden"-->
+                <tr th:each="dorden: ${cart}">
+                  <!--Se agrega lo recibido de la variable cart a la nueva variable creada "dorden"-->
                   <td th:text="${dorden.nombre}"></td>
                   <td th:text="${dorden.precio}"></td>
                   <td th:text="${dorden.cantidad}"></td>
                   <td th:text="${dorden.total}"></td>
-                  <td><a th:href="@{/delete/cart/{id} (id=${dorden.producto.idProducto})}" class="btn btn-danger">Quitar</a></td>
+                  <td><a th:href="@{/delete/cart/{id} (id=${dorden.producto.idProducto})}"
+                      class="btn btn-danger">Quitar</a></td>
                 </tr>
               </tbody>
             </table>
@@ -78,15 +82,15 @@
         </div>
       </div>
     </div>
-    </div>
-    <!-- /.container -->
+  </div>
+  <!-- /.container -->
 
-    <!--Incluyendo template de footer del usuario-->
-    <div th:include="usuario/template_usuario.html::footer"></div>
+  <!--Incluyendo template de footer del usuario-->
+  <div th:include="usuario/template_usuario.html::footer"></div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 

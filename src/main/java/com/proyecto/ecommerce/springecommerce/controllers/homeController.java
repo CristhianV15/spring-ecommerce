@@ -60,9 +60,11 @@ public class homeController {
     //Datos de la orden
     Orden orden =new Orden();
     @GetMapping("") //apunta a la raiz
-    public String home(Model model, HttpSession session ){
+    public String home(Model model, HttpSession session, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden ){
         log.info("Sesion del usuario (id) {}" , session.getAttribute("idusuario"));
         model.addAttribute("productos", productoService.findAll()); //guardar todos los datos de productos en variable productos
+        //Variable sesion enviada a la vista
+        model.addAttribute("sesionUser", idUsuarioOrden);
         return "usuario/home";
     }
 
@@ -72,7 +74,6 @@ public class homeController {
         Producto producto = new Producto();
         Optional<Producto> productoOptional = productoService.get(id);
         producto = productoOptional.get();
-
         //Enviar lo del producto a la vista 
         model.addAttribute("producto", producto); //"variable en vista", variable del metodo 
         return "usuario/productohome";
@@ -141,9 +142,11 @@ public class homeController {
     }
 
     @GetMapping("/getCart")
-    public String getCart(Model model){
+    public String getCart(Model model, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden){
         model.addAttribute("cart", detalles);
         model.addAttribute("orden", orden);
+        //sesion
+        model.addAttribute("sesionUser", idUsuarioOrden);
         return "/usuario/carrito";
     }
 
