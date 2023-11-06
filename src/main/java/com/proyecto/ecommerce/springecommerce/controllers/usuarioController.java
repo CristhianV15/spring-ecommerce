@@ -28,11 +28,6 @@ public class usuarioController {
     @Autowired
     private IUsuarioService usuarioService;
    
-    //Metodo para obtener el idUsuario por la variable usuario
-    @ModelAttribute("idUsuarioOrden")
-    public Integer getIdUsuarioOrden(HttpSession session){
-        return Integer.parseInt(session.getAttribute("idusuario").toString());
-    } //para usarlo se usa como parametro : @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden
     
     
     // /usuario / registro
@@ -98,8 +93,8 @@ public class usuarioController {
     }
 
     @GetMapping("/compras")
-    public String obtenerCompras (Model model, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden){
-        model.addAttribute("sesionUser", idUsuarioOrden);
+    public String obtenerCompras (Model model, HttpSession session){
+        model.addAttribute("sesionUser", session.getAttribute("idusuario"));
         return "usuario/compras";
     }
 } 

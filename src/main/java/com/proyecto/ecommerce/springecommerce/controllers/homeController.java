@@ -192,6 +192,7 @@ public class homeController {
         log.info("Nombre del producto {}" , nombre);    
         List<Producto> productos = productoService.findAll().stream().filter(p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
         model.addAttribute("productos", productos);
+        log.info("Nombre del producto seleccionado {} ", productos);
         return "usuario/home";
     }
 }
