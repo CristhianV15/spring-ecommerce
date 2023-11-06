@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Sess
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,7 +28,12 @@ public class usuarioController {
     @Autowired
     private IUsuarioService usuarioService;
    
-  
+    //Metodo para obtener el idUsuario por la variable usuario
+    @ModelAttribute("idUsuarioOrden")
+    public Integer getIdUsuarioOrden(HttpSession session){
+        return Integer.parseInt(session.getAttribute("idusuario").toString());
+    } //para usarlo se usa como parametro : @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden
+    
     
     // /usuario / registro
     @GetMapping("/registro")
@@ -89,5 +95,11 @@ public class usuarioController {
         }
         redirectAttributes.addFlashAttribute("errorLogeo2", "El correo ingresado no existe");
         return "redirect:/usuario/login"; //regresa a la home
+    }
+
+    @GetMapping("/compras")
+    public String obtenerCompras (Model model, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden){
+        model.addAttribute("sesionUser", idUsuarioOrden);
+        return "usuario/compras";
     }
 } 
