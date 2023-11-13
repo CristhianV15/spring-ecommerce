@@ -30,6 +30,14 @@ import jakarta.servlet.http.HttpSession;
 public class usuarioController {
     private final Logger logger = LoggerFactory.getLogger(producto.class);
 
+    @ModelAttribute("sesionUser")
+    public Integer getSessionUser(HttpSession session) {
+        if (session != null && session.getAttribute("idusuario") != null) {
+            return Integer.parseInt(session.getAttribute("idusuario").toString());
+        }
+        return null;
+    }
+
     @Autowired
     private IUsuarioService usuarioService;
    
@@ -46,7 +54,7 @@ public class usuarioController {
     public String login(){
         return "usuario/login";
     }
-
+    
     //Guardar usuario
     @PostMapping("/save")
     public String save (Usuario usuario)
@@ -99,22 +107,19 @@ public class usuarioController {
     }
 
     @GetMapping("/compras")
-    public String obtenerCompras (Model model, HttpSession session){
-        model.addAttribute("sesionUser", session.getAttribute("idusuario"));
-        Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+    public String obtenerCompras (Model model, @ModelAttribute("sesionUser") Integer sesionUser){
+        Usuario usuario = usuarioService.findById(sesionUser).get();
         List<Orden> ordenes= ordenService.findByUsuario(usuario);
         model.addAttribute("ordenes", ordenes);
         return "usuario/compras";
     }
     
     @GetMapping("/detalle/{id}")
-    public String detalleCompra(@PathVariable Integer id, HttpSession session,Model model){
+    public String detalleCompra(@PathVariable Integer id, Model model){
         logger.info("Id de la orden para mostrar su detalle {}", id );
         Optional<Orden> orden = ordenService.findByIdOrden(id);
 
-        model.addAttribute("detalles", orden.get().getDetalle());
-        //Variable sesion
-        model.addAttribute("sesionUser", session.getAttribute("idusuario"));
+        model.addAttribute("detalles", orden.get().getDetalle());        
         return "usuario/detallecompra";
     }
 

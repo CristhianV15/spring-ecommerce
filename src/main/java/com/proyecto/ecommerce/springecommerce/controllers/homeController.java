@@ -51,14 +51,6 @@ public class homeController {
     List<DetalleOrden> detalles = new ArrayList<DetalleOrden>();
 
     // Metodo para obtener el idUsuario por la variable usuario
-    @ModelAttribute("idUsuarioOrden")
-    public Integer getIdUsuarioOrden(HttpSession session) {
-        if (session != null && session.getAttribute("idusuario") != null) {
-            return Integer.parseInt(session.getAttribute("idusuario").toString());
-
-        }
-        return null;
-    } // para usarlo se usa como parametro : @ModelAttribute("idUsuarioOrden") Integer
 
     @ModelAttribute("sesionUser")
     public Integer getSessionUser(HttpSession session) {
@@ -71,10 +63,10 @@ public class homeController {
     Orden orden = new Orden();
 
     @GetMapping("") // apunta a la raiz
-    public String home(Model model, HttpSession session, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden) {
+    public String home(Model model, @ModelAttribute("sesionUser") Integer sesionUser) {
             model.addAttribute("productos", productoService.findAll()); // guardar todos los datos de productos en variable productos
-            // Variable sesion enviada a la vista
-            log.info("Sesion del usuario (id) {}", session.getAttribute("idusuario"));
+            //Mostrar el idUsuario logeado en consola
+            log.info("Sesion del usuario (idUsuarioLogeado): {}", sesionUser );            
             return "usuario/home";        
     }
 
@@ -151,18 +143,17 @@ public class homeController {
     }
 
     @GetMapping("/getCart")
-    public String getCart(Model model, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden) {
+    public String getCart(Model model) {
         model.addAttribute("cart", detalles);
         model.addAttribute("orden", orden);
-        // sesion
-        model.addAttribute("sesionUser", idUsuarioOrden);
+        
         return "/usuario/carrito";
     }
 
     @GetMapping("/order")
-    public String order(Model model, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden) {
+    public String order(Model model, @ModelAttribute("sesionUser") Integer sesionUser) {
 
-        Usuario usuario = usuarioService.findById(idUsuarioOrden).get();
+        Usuario usuario = usuarioService.findById(sesionUser).get();
 
         model.addAttribute("cart", detalles);
         model.addAttribute("orden", orden);
@@ -171,13 +162,13 @@ public class homeController {
     }
 
     @GetMapping("/saveOrder")
-    public String saveOrder(@ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden) {
+    public String saveOrder(@ModelAttribute("sesionUser") Integer sesionUser) {
         Date fechaCreacion = new Date();
         orden.setFechaCreacion(fechaCreacion);
         orden.setNumero(ordenService.generarNumeroOrden());
 
         // usuario
-        Usuario usuario = usuarioService.findById(idUsuarioOrden).get();
+        Usuario usuario = usuarioService.findById(sesionUser).get();
 
         orden.setUsuario(usuario);
         ordenService.save(orden);

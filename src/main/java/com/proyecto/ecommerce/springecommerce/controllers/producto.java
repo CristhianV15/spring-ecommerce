@@ -31,11 +31,16 @@ public class producto {
 
     private final Logger logger = LoggerFactory.getLogger(producto.class);
 
-    //Método para guardar el idUsuario mediante la sesion del usuario
-    @ModelAttribute ("idUsuarioOrden")
-    public Integer getIdUsuarioOrden (HttpSession session){
-        return Integer.parseInt(session.getAttribute("idusuario").toString()); //Se obtiene desde usuarioController
+
+
+    @ModelAttribute("sesionUser")
+    public Integer getSessionUser(HttpSession session) {
+        if (session != null && session.getAttribute("idusuario") != null) {
+            return Integer.parseInt(session.getAttribute("idusuario").toString());
+        }
+        return null;
     }
+
 
     @Autowired
     private IUsuarioService usuarioService;
@@ -58,15 +63,15 @@ public class producto {
     }
 
     @PostMapping("/save")
-    public String save(Producto producto, @RequestParam("img") MultipartFile file, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden) throws IOException { // busca el
+    public String save(Producto producto, @RequestParam("img") MultipartFile file, @ModelAttribute("sesionUser") Integer sesionUser) throws IOException { // busca el
                                                                                                         // atributo img
                                                                                                         // en la vista
                                                                                                         // de
                                                                                                         // create.html
                                                                                                         // -->"name"
         logger.info("Objeto producto: {}", producto);
-        Usuario u = usuarioService.findById(idUsuarioOrden).orElse(new Usuario());
-        logger.info( "Id del usuaroi loegaod para guardar el producto {}", idUsuarioOrden);
+        Usuario u = usuarioService.findById(sesionUser).orElse(new Usuario());
+        logger.info( "Id del usuaroi loegaod para guardar el producto {}", sesionUser);
         producto.setUsuario(u);
         
 
