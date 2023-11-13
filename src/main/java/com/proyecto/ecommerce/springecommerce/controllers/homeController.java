@@ -60,23 +60,22 @@ public class homeController {
         return null;
     } // para usarlo se usa como parametro : @ModelAttribute("idUsuarioOrden") Integer
 
+    @ModelAttribute("sesionUser")
+    public Integer getSessionUser(HttpSession session) {
+        if (session != null && session.getAttribute("idusuario") != null) {
+            return Integer.parseInt(session.getAttribute("idusuario").toString());
+        }
+        return null;
+    }
     // Datos de la orden
     Orden orden = new Orden();
 
     @GetMapping("") // apunta a la raiz
     public String home(Model model, HttpSession session, @ModelAttribute("idUsuarioOrden") Integer idUsuarioOrden) {
-        if (idUsuarioOrden != null) {
-            model.addAttribute("productos", productoService.findAll()); // guardar todos los datos de productos en
-                                                                        // variable productos
+            model.addAttribute("productos", productoService.findAll()); // guardar todos los datos de productos en variable productos
             // Variable sesion enviada a la vista
-            model.addAttribute("sesionUser", idUsuarioOrden);
             log.info("Sesion del usuario (id) {}", session.getAttribute("idusuario"));
-            return "usuario/home";
-
-        }
-        model.addAttribute("productos", productoService.findAll()); // guardar todos los datos de productos en variable
-                                                                    // productos
-        return "usuario/home";
+            return "usuario/home";        
     }
 
     // Para ver detalle del producto
