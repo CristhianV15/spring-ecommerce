@@ -1,5 +1,6 @@
 package com.proyecto.ecommerce.springecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.proyecto.ecommerce.springecommerce.models.Producto;
@@ -17,5 +18,7 @@ public interface IUsuarioService {
 
     public void delete(Integer id);
 
+    List<Usuario> findAll();
+    
     Optional <Usuario> findByEmail(String email);
 }

@@ -1,5 +1,6 @@
 package com.proyecto.ecommerce.springecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,7 @@ public class UsuarioServiceImp implements IUsuarioService{
 
     @Override
     public void update(Usuario usuario) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        usuarioRepository.save(usuario);
     }
 
     @Override
@@ -46,6 +46,11 @@ public class UsuarioServiceImp implements IUsuarioService{
     @Override
     public Optional<Usuario> findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+       return usuarioRepository.findAll();  
     }
     
     
