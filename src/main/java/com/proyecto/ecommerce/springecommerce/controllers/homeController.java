@@ -74,11 +74,12 @@ public class homeController {
     @GetMapping("productohome/{id}")
     public String productoHome(@PathVariable Integer id, Model model) {
         log.info("IdProducto enviado como parametro (vista cliente pag principal a detalle): {}", id);
-        Producto producto = new Producto();
+        
         Optional<Producto> productoOptional = productoService.get(id);
-        producto = productoOptional.get();
-        // Enviar lo del producto a la vista
-        model.addAttribute("producto", producto); // "variable en vista", variable del metodo
+
+        productoOptional.ifPresent(producto -> model.addAttribute("producto", producto));
+
+      
         return "usuario/productohome";
     }
 

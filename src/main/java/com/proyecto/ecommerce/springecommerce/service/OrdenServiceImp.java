@@ -13,9 +13,12 @@ import com.proyecto.ecommerce.springecommerce.repository.IOrdenRepository;
 
 @Service
 public class OrdenServiceImp implements IOrdenService {
+    private final IOrdenRepository orderRepository;
+
     @Autowired
-    private IOrdenRepository orderRepository;
-    
+    public OrdenServiceImp(IOrdenRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
     @Override
     public Orden save(Orden orden) {
         return orderRepository.save(orden);
