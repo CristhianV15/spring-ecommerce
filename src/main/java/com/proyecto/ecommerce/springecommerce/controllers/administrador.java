@@ -40,7 +40,7 @@ public class administrador {
 
     @GetMapping("/usuarios")
     public String usuarios(Model model){
-        model.addAttribute("usuarios", usuarioService.findAll());
+        model.addAttribute("usuarios", usuarioService.findAllModificado());
         return "administrador/usuarios";
     }
 

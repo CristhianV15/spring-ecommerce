@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Data
 @Entity
-@Table(name= "tiposUsuarios") //Anotacion para no usar el nombre de la clase "Categoria"
+@Table(name= "tiposUsuarios") //Anotacion para no usar el nombre de la clase "tipousuario"
 
 public class TipoUsuario {
     @Id

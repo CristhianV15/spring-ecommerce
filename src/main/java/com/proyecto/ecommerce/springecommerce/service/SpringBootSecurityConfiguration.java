@@ -1,4 +1,4 @@
-package com.proyecto.ecommerce.springecommerce.service;
+/* package com.proyecto.ecommerce.springecommerce.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ public class SpringBootSecurityConfiguration {
 
     @Autowired
     private UserDetailsService userDetailService;
-/*
+
     @Bean
     public BCryptPasswordEncoder getEncoder() {
         return new BCryptPasswordEncoder();
@@ -35,5 +35,5 @@ public class SpringBootSecurityConfiguration {
                 .permitAll()
                 .defaultSuccessUrl("/usuario/acceder");
         return http.build();
-    } */
-}
+    } 
+}*/

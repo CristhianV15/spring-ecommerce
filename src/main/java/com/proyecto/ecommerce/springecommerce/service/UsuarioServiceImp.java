@@ -52,6 +52,11 @@ public class UsuarioServiceImp implements IUsuarioService{
     public List<Usuario> findAll() {
        return usuarioRepository.findAll();  
     }
+
+    @Override
+    public List<Usuario> findAllModificado() {
+        return  usuarioRepository.findAllModificado();
+    }
     
     
     

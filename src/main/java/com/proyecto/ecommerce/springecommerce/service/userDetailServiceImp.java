@@ -1,4 +1,4 @@
-package com.proyecto.ecommerce.springecommerce.service;
+    /*package com.proyecto.ecommerce.springecommerce.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Service
 public class userDetailServiceImp  implements UserDetailsService{
+
     @Autowired
     private IUsuarioService usuarioService;
     
@@ -62,5 +63,5 @@ public class userDetailServiceImp  implements UserDetailsService{
         }
     }
     
+} */
     
-}

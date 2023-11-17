@@ -19,6 +19,8 @@ public interface IUsuarioService {
     public void delete(Integer id);
 
     List<Usuario> findAll();
+
+    List<Usuario> findAllModificado();
     
     Optional <Usuario> findByEmail(String email);
 }

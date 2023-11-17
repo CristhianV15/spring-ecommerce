@@ -44,6 +44,7 @@
         <th scope="col">Nombre</th>
         <th scope="col">Email</th>
         <th scope="col">Dirección</th>
+        <th scope="col">Tipo cuenta</th>
       </tr>
     </thead>
     <tbody>
@@ -51,6 +52,8 @@
         <td th:text="${usuario.nombre}"></td>
         <td th:text="${usuario.email}"></td>
         <td th:text="${usuario.direccion}"></td>
+        <td th:text="${usuario.tipoUsuario.nombre}"></td>
+        
       </tr>       
     </tbody>
   </table>
