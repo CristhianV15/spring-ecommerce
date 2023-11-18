@@ -21,52 +21,52 @@
 
 <body>
 
-  <!--Incluir template de header en pagina principal de administrador-->
-    <div th:include="administrador/template_admin.html::header"></div>
-
-<!-- Page Content -->
-<div class="container">
+  <div th:include="administrador/template_admin.html::header"></div>
 
 
-  <!-- Page Heading/Breadcrumbs -->
-  <h1 class="mt-4 mb-3">
-    Spring eCommerce <small>Usuarios</small>
-  </h1>
+  <!-- Page Content -->
+  <div class="container">
 
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-    <li class="breadcrumb-item active">Ver Usuarios</li>
-  </ol>
-  <h2>Usuarios</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Email</th>
-        <th scope="col">Dirección</th>
-        <th scope="col">Tipo cuenta</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="usuario: ${usuarios}">
-        <td th:text="${usuario.nombre}"></td>
-        <td th:text="${usuario.email}"></td>
-        <td th:text="${usuario.direccion}"></td>
-        <td th:text="${usuario.tipoUsuario.nombre}"></td>
-        
-      </tr>       
-    </tbody>
-  </table>
 
-</div>
-<!-- /.container -->
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">
+      Spring eCommerce <small>Usuarios</small>
+    </h1>
+
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+      <li class="breadcrumb-item active">Ver Usuarios</li>
+    </ol>
+    <h2>Usuarios</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Email</th>
+          <th scope="col">Dirección</th>
+          <th scope="col">Tipo cuenta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="usuario: ${usuarios}">
+          <td th:text="${usuario.nombre}"></td>
+          <td th:text="${usuario.email}"></td>
+          <td th:text="${usuario.direccion}"></td>
+          <td th:text="${usuario.tipoUsuario.nombre}"></td>
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <!-- /.container -->
 
     <!--Incluyendo template de footer-->
     <div th:include="administrador/template_admin.html::footer"></div>
 
     <!-- Bootstrap core JavaScript -->
-    <script th:src="@{vendor/jquery/jquery.min.js}"></script>
-    <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
 </body>
 
