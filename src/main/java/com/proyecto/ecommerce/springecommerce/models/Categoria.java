@@ -14,4 +14,9 @@ public class Categoria {
     private Integer idCategoria;
     private String nombre;
     private String estado;
+
+    @Override
+	public String toString() {
+		return "Categoria [id=" + idCategoria + ", nombre=" + nombre +  "]";
+	}
 }
