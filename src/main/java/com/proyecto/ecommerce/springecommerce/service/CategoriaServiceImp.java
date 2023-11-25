@@ -16,8 +16,7 @@ public class CategoriaServiceImp implements ICategoriaService{
 
     @Override
     public List<Categoria> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+       return categoriaRepository.findAll();
     }
 
     @Override

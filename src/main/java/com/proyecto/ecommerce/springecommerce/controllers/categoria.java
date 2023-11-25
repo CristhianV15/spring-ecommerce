@@ -28,16 +28,20 @@ public class categoria {
    
     @GetMapping("")
     public String home(Model model){
-        return "administrador/categoria";
+        model.addAttribute("categorias", categoriaService.findAll());
+        return "categorias/show";
     }
 
-    
+    @GetMapping("/create")
+    public String create() {
+        return "categorias/create";
+    }
     @PostMapping("/save")
     public String save(Categoria categoria) { 
         logger.info("Objeto categoria: {}", categoria);
         categoria.setEstado("1"); //Estado por defecto 
         categoriaService.save(categoria);
-        return "redirect:/categoria";
+        return "redirect:/categorias";
     }
 
 }
