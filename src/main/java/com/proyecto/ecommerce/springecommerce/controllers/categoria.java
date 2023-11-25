@@ -33,11 +33,11 @@ public class categoria {
 
     
     @PostMapping("/save")
-    public String save(Categoria categoria, @ModelAttribute("sesionUser") Integer sesionUser) { 
+    public String save(Categoria categoria) { 
         logger.info("Objeto categoria: {}", categoria);
-  
-      //  categoriaService.save(categoria);
-        return "administrador/categoria";
+        categoria.setEstado("1"); //Estado por defecto 
+        categoriaService.save(categoria);
+        return "redirect:/categoria";
     }
 
 }
