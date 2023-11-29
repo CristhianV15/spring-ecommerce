@@ -1,12 +1,15 @@
 package com.proyecto.ecommerce.springecommerce.controllers;
 
 import java.io.IOException;
+import java.util.Optional;
+
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +39,7 @@ public class categoria {
     public String create() {
         return "categorias/create";
     }
+
     @PostMapping("/save")
     public String save(Categoria categoria) { 
         logger.info("Objeto categoria: {}", categoria);
@@ -43,5 +47,18 @@ public class categoria {
         categoriaService.save(categoria);
         return "redirect:/categorias";
     }
+
+
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        // borrar la imagen
+        Categoria c = new Categoria();
+        c = categoriaService.get(id).get();
+        categoriaService.delete(id);
+        return "redirect:/productos";
+    }
+
+
 
 }
