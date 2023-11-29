@@ -58,8 +58,9 @@ public class categoria {
         logger.info("Categoria buscada mediante edit: {}", categoria);
         model.addAttribute("categoria", categoria); // enviar todo el objeto producto
 
-        return "categoria/edit";
+        return "categorias/edit";
     }
+
 
 
     @GetMapping("/delete/{id}")
