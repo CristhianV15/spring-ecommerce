@@ -45,18 +45,16 @@ public class categoria {
         logger.info("Objeto categoria: {}", categoria);
         categoria.setEstado("1"); //Estado por defecto 
         categoriaService.save(categoria);
-        return "redirect:/categorias";
+        return "redirect:/categoria";
     }
 
 
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        // borrar la imagen
-        Categoria c = new Categoria();
-        c = categoriaService.get(id).get();
+        logger.info("Objeto borrado (idcategoria) {}", id);
         categoriaService.delete(id);
-        return "redirect:/productos";
+        return "redirect:/categoria";
     }
 
 
