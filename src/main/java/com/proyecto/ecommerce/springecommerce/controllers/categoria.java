@@ -62,7 +62,8 @@ public class categoria {
     }
 
 
-
+    
+    
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
         logger.info("Objeto borrado (idcategoria) {}", id);
