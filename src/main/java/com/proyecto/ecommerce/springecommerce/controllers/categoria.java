@@ -48,6 +48,18 @@ public class categoria {
         return "redirect:/categoria";
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Categoria categoria = new Categoria();
+        Optional<Categoria> optionalCategoria = categoriaService.get(id);
+        categoria = optionalCategoria.get();
+
+        // Mostrar en consola la categoria seleccionada
+        logger.info("Categoria buscada mediante edit: {}", categoria);
+        model.addAttribute("categoria", categoria); // enviar todo el objeto producto
+
+        return "categoria/edit";
+    }
 
 
     @GetMapping("/delete/{id}")

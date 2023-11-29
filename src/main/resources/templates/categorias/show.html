@@ -53,7 +53,7 @@
           <td th:text="${categoria.idCategoria}"></td>
           <td th:text="${categoria.nombre}"></td>
           <td th:text="${categoria.estado}"></td>
-          <td><a class="btn btn-warning" th:href="@{categorias/edit/{id} (id=${categoria.idCategoria})}">Editar</a> </td>
+          <td><a class="btn btn-warning" th:href="@{categoria/edit/{id} (id=${categoria.idCategoria})}">Editar</a> </td>
           <td><a class="btn btn-danger" th:href="@{categoria/delete/{id} (id=${categoria.idCategoria})}">Eliminar</a> </td>
           
         </tr>
