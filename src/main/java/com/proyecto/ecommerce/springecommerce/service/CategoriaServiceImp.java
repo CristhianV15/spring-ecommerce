@@ -35,5 +35,10 @@ public class CategoriaServiceImp implements ICategoriaService{
     public void delete(Integer id) {
         categoriaRepository.deleteById(id);
     }
+
+    @Override
+    public void update(Categoria categoria) {
+        categoriaRepository.save(categoria);
+    }
     
 }
