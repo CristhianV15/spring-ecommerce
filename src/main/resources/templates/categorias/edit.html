@@ -39,7 +39,7 @@
       </ol>
 
       <h2>Actualizar Producto</h2>
-      <form class="form-horizontal" method="post"  enctype="multipart/form-data">
+      <form class="form-horizontal"  th:action="@{/categoria/update}"  method="post"  enctype="multipart/form-data">
         <!--Id oculto del producto para actualizar-->
         <input type="text" name="idCategoria" th:value="${categoria.idCategoria}">  
         
