@@ -64,10 +64,11 @@ public class categoria {
 
     @PostMapping("/update")
     public String update(Categoria categoria){
-
-        // p = productoService.get(producto.getIdProducto()).get(); // obtener la imagen ya registrada
-       // productoService.update(producto);
-       // categoriaService.update(categoria);
+        Categoria c = new Categoria();
+        c = categoriaService.get(categoria.getIdCategoria()).get();
+        categoria.setIdCategoria(c.getIdCategoria());
+        logger.info("ID de la categoria para cambiar {}", categoria.getIdCategoria());
+         categoriaService.update(categoria);
         return "redirect:/categoria";
     }
 
