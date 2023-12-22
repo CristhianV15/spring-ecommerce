@@ -5,12 +5,14 @@ import java.util.Optional;
 
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,9 +30,9 @@ public class categoria {
 
     @Autowired
     private ICategoriaService categoriaService;
-   
+
     @GetMapping("")
-    public String home(Model model){
+    public String home(Model model) {
         model.addAttribute("categorias", categoriaService.findAll());
         return "categorias/show";
     }
@@ -41,9 +43,9 @@ public class categoria {
     }
 
     @PostMapping("/save")
-    public String save(Categoria categoria) { 
+    public String save(Categoria categoria) {
         logger.info("Objeto categoria: {}", categoria);
-        categoria.setEstado("1"); //Estado por defecto 
+        categoria.setEstado("1"); // Estado por defecto
         categoriaService.save(categoria);
         return "redirect:/categoria";
     }
@@ -61,17 +63,28 @@ public class categoria {
         return "categorias/edit";
     }
 
-
     @PostMapping("/update")
-    public String update(Categoria categoria){
+    public String update(Categoria categoria) {
         Categoria c = new Categoria();
         c = categoriaService.get(categoria.getIdCategoria()).get();
         categoria.setIdCategoria(c.getIdCategoria());
         logger.info("ID de la categoria para cambiar {}", categoria.getIdCategoria());
-         categoriaService.update(categoria);
+        categoriaService.update(categoria);
         return "redirect:/categoria";
     }
 
+    @GetMapping("/updateEstado/{id}/{nuevoEstado}")
+    public ResponseEntity<String> updateEstado(@PathVariable Integer id, @PathVariable Integer nuevoEstado) {
+        Optional<Categoria> optionalCategoria = categoriaService.get(id);
+        if (optionalCategoria.isPresent()) {
+            Categoria categoria = optionalCategoria.get();
+            categoria.setEstado(nuevoEstado.toString());
+            categoriaService.save(categoria); // Guarda la categoría con el nuevo estado en la base de datos
+            return ResponseEntity.ok("Estado actualizado correctamente");
+        } else {
+            return ResponseEntity.notFound().build(); // Devuelve 404 si la categoría no se encuentra
+        }
+    }
     
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
@@ -79,7 +92,5 @@ public class categoria {
         categoriaService.delete(id);
         return "redirect:/categoria";
     }
-
-
 
 }

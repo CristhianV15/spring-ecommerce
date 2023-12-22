@@ -53,6 +53,11 @@
           <td th:text="${categoria.idCategoria}"></td>
           <td th:text="${categoria.nombre}"></td>
           <td th:text="${categoria.estado}"></td>
+          <td>
+            <button class="btn btn-toggle" th:data-categoriaId="${categoria.idCategoria}" th:data-categoriaEstado="${categoria.estado}">
+                Cambiar Estado
+            </button>
+          </td>
           <td><a class="btn btn-warning" th:href="@{categoria/edit/{id} (id=${categoria.idCategoria})}">Editar</a> </td>
           <td><a class="btn btn-danger" th:href="@{categoria/delete/{id} (id=${categoria.idCategoria})}">Eliminar</a> </td>
           
@@ -67,8 +72,32 @@
   <div th:include="administrador/template_admin.html::footer"></div>
 
   <!-- Bootstrap core JavaScript -->
-  <script th:src="@{vendor/jquery/jquery.min.js}"></script>
-  <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    $(document).ready(function() {//Cuando cargue la pagina
+    $('.btn-toggle').click(function() {//se activa con la clase -btn-toggle 
+        var categoriaId = $(this).data('categoriaId');// Obtener el valor del atributo data-categoriaId del elemento en el que se hizo clic (el botón de toggle)
+        var nuevoEstado = ($(this).data('categoriaEstado') == 1) ? 0 : 1;//Cambiar estado actuala del toggle si es 1 se cambia a 0 (y viceversa)
+
+        $.ajax({
+            type: 'PUT',
+            url: '/categoria/updateEstado/' + categoriaId + '/' + nuevoEstado,
+            success: function(response) {
+                console.log('Estado actualizado exitosamente');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('Error al actualizar el estado:', textStatus, errorThrown);
+            }
+        });
+    });
+});
+
+   
+  </script>
+
+  
 </body>
 
 </html>
