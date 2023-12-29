@@ -73,7 +73,7 @@ public class categoria {
         return "redirect:/categoria";
     }
 
-    @GetMapping("/updateEstado/{id}/{nuevoEstado}")
+    @PutMapping("/updateEstado/{id}/{nuevoEstado}")
     public ResponseEntity<String> updateEstado(@PathVariable Integer id, @PathVariable Integer nuevoEstado) {
         Optional<Categoria> optionalCategoria = categoriaService.get(id);
         if (optionalCategoria.isPresent()) {

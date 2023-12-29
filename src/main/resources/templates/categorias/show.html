@@ -52,7 +52,7 @@
         <tr th:each="categoria:${categorias}">           
           <td th:text="${categoria.idCategoria}"></td>
           <td th:text="${categoria.nombre}"></td>
-          <td th:text="${categoria.estado}"></td>
+          <td class="estado-categoria" th:text="${categoria.estado}"></td>
           <td>
             <button class="btn btn-toggle" th:data-idcategoria="${categoria.idCategoria}" th:data-estadocategoria="${categoria.estado}">
                 Cambiar Estado
@@ -86,6 +86,10 @@
             type: 'PUT',
             url: '/categoria/updateEstado/' + categoriaId + '/' + nuevoEstado,
             success: function(response) {
+              //Si se actualiza en la bd, se actualiza el campo de la vista
+              var $estadoCategoria = $('.estado-categoria'); // Selector para el elemento que muestra el estado
+              var nuevoEstadoTexto = (nuevoEstado == 1 ) ? "1" : "0"; 
+              $estadoCategoria.text(nuevoEstadoTexto);
                 console.log('Estado actualizado exitosamente');
             },
             error: function(jqXHR, textStatus, errorThrown) {
