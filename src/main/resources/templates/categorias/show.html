@@ -49,7 +49,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="categoria:${categorias}">           
+        <tr th:each="categoria:${categorias}" th:id= "'categoria-' + ${categoria.idCategoria}">           
+          <!--Se le asigna una clase al id de la categoria y al estado para poder actualizarlo mediante el ajax -->
           <td th:text="${categoria.idCategoria}"></td>
           <td th:text="${categoria.nombre}"></td>
           <td class="estado-categoria" th:text="${categoria.estado}"></td>
@@ -77,24 +78,24 @@
   <script>
     $(document).ready(function() {//Cuando cargue la pagina
     $('.btn-toggle').click(function() {//se activa con la clase -btn-toggle 
+      
         var categoriaId = $(this).data('idcategoria');// Obtener el valor del atributo data-categoriaId del elemento en el que se hizo clic (el botón de toggle)
         var nuevoEstado = ($(this).data('estadocategoria') == 1) ? 0 : 1;//Cambiar estado actuala del toggle si es 1 se cambia a 0 (y viceversa)
         console.log('El id de la categoria a actualizar es : ', categoriaId);
         console.log('El estado actual es : ' , nuevoEstado);
 
         $.ajax({
-            type: 'PUT',
-            url: '/categoria/updateEstado/' + categoriaId + '/' + nuevoEstado,
-            success: function(response) {
-              //Si se actualiza en la bd, se actualiza el campo de la vista
-              var $estadoCategoria = $('.estado-categoria'); // Selector para el elemento que muestra el estado
-              var nuevoEstadoTexto = (nuevoEstado == 1 ) ? "1" : "0"; 
-              $estadoCategoria.text(nuevoEstadoTexto);
-                console.log('Estado actualizado exitosamente');
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('Error al actualizar el estado:', textStatus, errorThrown);
-            }
+          type: 'PUT',
+    url: '/categoria/updateEstado/' + categoriaId + '/' + nuevoEstado,
+    success: function(response) {
+        var $estadoCategoria = $('#categoria-' + categoriaId).find('.estado-categoria');
+        var nuevoEstadoTexto = (nuevoEstado == 1) ? "1" : "0";
+        $estadoCategoria.text(nuevoEstadoTexto);
+        console.log('Estado actualizado exitosamente');
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        console.log('Error al actualizar el estado:', textStatus, errorThrown);
+    }
         });
     });
 });
