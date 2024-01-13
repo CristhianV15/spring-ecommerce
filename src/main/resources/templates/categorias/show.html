@@ -85,17 +85,20 @@
         console.log('El estado actual es : ' , nuevoEstado);
 
         $.ajax({
-          type: 'PUT',
-    url: '/categoria/updateEstado/' + categoriaId + '/' + nuevoEstado,
-    success: function(response) {
-        var $estadoCategoria = $('#categoria-' + categoriaId).find('.estado-categoria');
-        var nuevoEstadoTexto = (nuevoEstado == 1) ? "1" : "0";
-        $estadoCategoria.text(nuevoEstadoTexto);
-        console.log('Estado actualizado exitosamente');
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        console.log('Error al actualizar el estado:', textStatus, errorThrown);
-    }
+            type: 'PUT',
+            url: '/categoria/updateEstado/' + categoriaId + '/' + nuevoEstado,
+            success: function(response) {
+              //Si se actualiza en la bd, se actualiza el campo de la vista
+              //Validacion para actualizar solo donde el estado ha sido cambiado 
+              var $estadoCategoria = $('#categoria-' + categoriaId).find('.estado-categoria');// Selector para el elemento que muestra el estado
+                
+              var nuevoEstadoTexto = (nuevoEstado == 1 ) ? "1" : "0"; 
+              $estadoCategoria.text(nuevoEstadoTexto);
+                console.log('Estado actualizado exitosamente');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log('Error al actualizar el estado:', textStatus, errorThrown);
+            }
         });
     });
 });
