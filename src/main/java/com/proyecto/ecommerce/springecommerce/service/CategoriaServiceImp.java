@@ -2,6 +2,7 @@ package com.proyecto.ecommerce.springecommerce.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,4 +42,10 @@ public class CategoriaServiceImp implements ICategoriaService{
         categoriaRepository.save(categoria);
     }
     
+    public static List<Categoria> getAllCategorias() {
+        List<Categoria> categorias = ICategoriaRepository.findAll();
+        return categorias.stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+    }
 }
